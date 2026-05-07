@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Player</title>
+    <title>Live Stream</title>
     <style>
         body, html {
             margin: 0;
@@ -13,9 +13,6 @@
             background: #000;
         }
         iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             border: none;
@@ -23,17 +20,11 @@
     </style>
 </head>
 <body>
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const videoId = urlParams.get('id') || 'b_1CgD4z37s';
-
-        var iframe = document.createElement('iframe');
-        iframe.src = "https://www.youtube-nocookie.com/embed/"bNyUyrR0PHo"?autoplay=1&mute=1&playsinline=1&enablejsapi=1";
-        iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
-        iframe.setAttribute('allowfullscreen', '');
-        iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-
-        document.body.appendChild(iframe);
-    </script>
+    <iframe 
+        src="https://www.youtube-nocookie.com/embed/b_1CgD4z37s?autoplay=1&mute=1&playsinline=1"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
 </body>
 </html>
