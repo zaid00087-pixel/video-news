@@ -3,28 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Stream</title>
+    <title>Video Player</title>
+    <!-- تم التحديث: إضافة وسم محسن لإرسال بطاقة الهوية للمتصفح -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            background: #000;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #000; }
+        iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
-    <iframe 
-        src="https://www.youtube-nocookie.com/embed/bNyUyrR0PHo?autoplay=1&mute=1&playsinline=1"
-        allow="autoplay; encrypted-media; picture-in-picture"
-        allowfullscreen
-        referrerpolicy="strict-origin-when-cross-origin">
-    </iframe>
+    <div class="video-container">
+        <iframe 
+            src="https://www.youtube-nocookie.com/embed/bNyUyrR0PHo?autoplay=1&mute=1&playsinline=1&enablejsapi=1"
+            allow="autoplay; encrypted-media; picture-in-picture" 
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
+    </div>
 </body>
 </html>
