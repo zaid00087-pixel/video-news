@@ -1,24 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Player</title>
-    <!-- تم التحديث: إضافة وسم محسن لإرسال بطاقة الهوية للمتصفح -->
+    <title>Live Stream</title>
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <style>
         body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #000; }
         iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .error { color: #aaa; text-align: center; padding-top: 40vh; font-family: sans-serif; display: none; }
     </style>
 </head>
 <body>
-    <div class="video-container">
-        <iframe 
-            src="https://www.youtube-nocookie.com/embed/bNyUyrR0PHo?autoplay=1&mute=1&playsinline=1&enablejsapi=1"
-            allow="autoplay; encrypted-media; picture-in-picture" 
-            allowfullscreen
-            referrerpolicy="strict-origin-when-cross-origin">
-        </iframe>
-    </div>
+    <div class="error" id="error">عذراً، لا يمكن تشغيل هذا البث حالياً.</div>
+    <script>
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const channel = params.get('channel');
+
+            if (!channel) {
+                document.getElementById('error').style.display = 'block';
+                return;
+            }
+
+            const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRAbGhK_c_-2uvhIK9glRItKyXCwrANVByxHyGyXy9S-K-2AfbgcIKKrsuuSElZ7sYsiwF9vZYFWhjT/pub?output=csv';
+
+            fetch(CSV_URL)
+                .then(response => response.text())
+                .then(text => {
+                    const rows = text.trim().split('\n');
+                    for (let i = 1; i < rows.length; i++) {
+                        const cols = rows[i].split(',');
+                        if (cols.length >= 2 && cols[0].trim() === channel.trim()) {
+                            const videoId = cols[1].trim();
+                            const iframe = document.createElement('iframe');
+                            iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&mute=1&playsinline=1&enablejsapi=1';
+                            iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+                            iframe.allowFullscreen = true;
+                            iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+                            document.body.appendChild(iframe);
+                            return;
+                        }
+                    }
+                    document.getElementById('error').style.display = 'block';
+                })
+                .catch(() => {
+                    document.getElementById('error').style.display = 'block';
+                });
+        })();
+    </script>
 </body>
 </html>
