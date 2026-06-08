@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>بث مباشر</title>
+    
+    <!-- سياسة المُحيل: هذا هو سر تجاوز خطأ 153 -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
+    <style>
+        /* إعادة تعيين كاملة للصفحة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000000;
+        }
+        
+        /* حاوية الفيديو تملأ الشاشة بالكامل */
+        .video-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* إطار الفيديو يملأ الحاوية */
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+        
+        /* رسالة خطأ احتياطية */
+        .error-message {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffffff;
+            font-family: sans-serif;
+            font-size: 16px;
+            text-align: center;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <!-- حاوية الفيديو -->
+    <div class="video-wrapper">
+        <iframe 
+            src="https://www.youtube-nocookie.com/embed/bNyUyrR0PHo?autoplay=1&mute=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1"
+            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin"
+            loading="eager"
+            title="Live Stream Player">
+        </iframe>
+    </div>
+    
+    <!-- رسالة خطأ (لا تظهر إلا إذا فشل التحميل) -->
+    <div class="error-message" id="errorMsg">
+        عذرًا، لا يمكن تشغيل هذا البث حاليًا.<br>
+        يرجى المحاولة لاحقًا.
+    </div>
+    
+    <script>
+        // معالجة أخطاء التحميل
+        window.addEventListener('load', function() {
+            var iframe = document.querySelector('iframe');
+            if (!iframe) {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
